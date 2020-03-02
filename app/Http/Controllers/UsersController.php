@@ -71,13 +71,6 @@ class UsersController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
 
-            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Un-Authorised Access',
-                ], Response::HTTP_FORBIDDEN);
-            }
-
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -177,13 +170,6 @@ class UsersController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
 
-            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Un-Authorised Access',
-                ], Response::HTTP_FORBIDDEN);
-            }
-
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -233,13 +219,6 @@ class UsersController extends Controller
             $token = JWTAuth::getToken();
 
             if (!Gate::allows('isAdmin')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Un-Authorised Access',
-                ], Response::HTTP_FORBIDDEN);
-            }
-
-            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Un-Authorised Access',
