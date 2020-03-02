@@ -7,6 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+<p>Laravel Api + React Front End Multi User-Role Panel</p>
+
 1. Clone the repo
 ```
 git clone https://github.com/akshayshringi/react-panel.git
