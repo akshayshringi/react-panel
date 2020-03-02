@@ -89,7 +89,6 @@ class UsersController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
 
-            $request->password = Hash::make($request->password);
             $aUser = User::create($request->only('first_name','last_name','role','dob','password','email'));
             if(!$aUser){
                 return response()->json([
@@ -186,7 +185,6 @@ class UsersController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
 
-            $request->password = Hash::make($request->password);
             $aUser = $user->update($request->only('first_name','last_name','role','dob','password','email'));
             if(!$aUser){
                 return response()->json([
