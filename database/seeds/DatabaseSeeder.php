@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         User::truncate();
 
         $users = array(
-            ['role' => User::ROLE_ADMIN, 'first_name' => 'admin', 'last_name' => 'admin', 'email' => 'admin@admin.admin', 'password' => Hash::make('secret')],
-            ['role' => User::ROLE_MANAGER, 'first_name' => 'manager', 'last_name' => 'admin', 'email' => 'manager@admin.admin', 'password' => Hash::make('secret')],
-            ['role' => User::ROLE_EMPLOYEE, 'first_name' => 'employee', 'last_name' => 'admin', 'email' => 'employee@admin.admin', 'password' => Hash::make('secret')],
+            ['role' => User::ROLE_ADMIN, 'first_name' => 'admin', 'last_name' => 'admin', 'email' => 'admin@admin.admin', 'password' => 'secret'],
+            ['role' => User::ROLE_MANAGER, 'first_name' => 'manager', 'last_name' => 'admin', 'email' => 'manager@admin.admin', 'password' => 'secret'],
+            ['role' => User::ROLE_EMPLOYEE, 'first_name' => 'employee', 'last_name' => 'admin', 'email' => 'employee@admin.admin', 'password' => 'secret'],
         );
 
         foreach ($users as $user)
