@@ -28,16 +28,27 @@ npm i react-router-dom
 npm i react-flash-message
 ```
 
-5. Run migrations
+5. Artisan key Generate
+```
+php artisan key:generate
+```
+
+6. Run migrations
 ```
 php artisan migrate
 ```
 
-6. Run DatabaseSeeder
+7. Run DatabaseSeeder
 ```
 php artisan db:seed
 ```
 
-7. Complie React Component
+8. Complie React Component
 ```
 php run development
+```
+
+9. Add JWT Secret key
+```
+php artisan jwt:secret
+```
