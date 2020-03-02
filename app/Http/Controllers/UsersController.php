@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -21,6 +22,13 @@ class UsersController extends Controller
         try {
             $token = JWTAuth::getToken();
             $aUser = JWTAuth::user();
+
+            if (!Gate::allows('isAdmin') && !Gate::allows('isManager')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
 
             $aUsers = User::where('id','<>',$aUser->id)->where('role','<>',User::ROLE_ADMIN)->get();
             return response()->json([
@@ -56,6 +64,20 @@ class UsersController extends Controller
         try {
             $token = JWTAuth::getToken();
 
+            if (!Gate::allows('isAdmin')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
+            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -87,7 +109,7 @@ class UsersController extends Controller
                 'message' => 'User saved successfully.',
             ], Response::HTTP_OK);
             
-        } catch (Exception $e) {
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Token',
@@ -105,6 +127,13 @@ class UsersController extends Controller
     {
         try {
             $token = JWTAuth::getToken();
+
+            if (!Gate::allows('isAdmin') && !Gate::allows('isManager')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
             
             return response()->json([
                 'success'   => true,
@@ -141,6 +170,20 @@ class UsersController extends Controller
         try {
             $token = JWTAuth::getToken();
 
+            if (!Gate::allows('isAdmin')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
+            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -170,7 +213,7 @@ class UsersController extends Controller
                 'message' => 'User updated successfully.',
             ], Response::HTTP_OK);
             
-        } catch (Exception $e) {
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Token',
@@ -189,6 +232,20 @@ class UsersController extends Controller
         try {
             $token = JWTAuth::getToken();
 
+            if (!Gate::allows('isAdmin')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
+            if (Gate::denies('isEmployee') && Gate::denies('isManager')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Un-Authorised Access',
+                ], Response::HTTP_FORBIDDEN);
+            }
+
             if($user->delete()){
                 return response()->json([
                     'success' => true,
@@ -199,7 +256,7 @@ class UsersController extends Controller
                     'success' => false,
                     'message' => 'coudnt delete user.',
                 ], Response::HTTP_OK);
-        } catch (Exception $e) {
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Token',
